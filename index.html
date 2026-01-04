@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Karang Taruna Karsa Muda</title>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4Gk8v0jE0NQ2Lkz0WfGJp5xHg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+            secondary: '#0ea5e9',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .animate-fade { animation: fadeIn 1.2s ease forwards; }
+    .animate-fade-up { animation: fadeUp 1s ease forwards; }
+    .animate-fade-in-left { animation: fadeInLeft 1s ease forwards; }
+    .animate-fade-in-right { animation: fadeInRight 1s ease forwards; }
+    .animate-slide-in-left { animation: slideInLeft 1s ease forwards; }
+    .animate-slide-in-right { animation: slideInRight 1s ease forwards; }
+    .animate-slide-down { animation: slideDown 0.8s ease forwards; }
+    .animate-bounce { animation: bounce 1.2s infinite; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeInLeft { from { opacity:0; transform: translateX(-20px); } to { opacity:1; transform: translateX(0); } }
+    @keyframes fadeInRight { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+    @keyframes slideInLeft { from { transform: translateX(-100%); opacity:0; } to { transform: translateX(0); opacity:1; } }
+    @keyframes slideInRight { from { transform: translateX(100%); opacity:0; } to { transform: translateX(0); opacity:1; } }
+    @keyframes slideDown { from { transform: translateY(-20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    @keyframes bounce { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-8px);} }
+
+    .animate-card {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: cardFadeUp 0.8s ease forwards;
+    }
+
+    @keyframes cardFadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-line-v {
+      transform-origin: top;
+      transform: scaleY(0);
+      animation: lineGrowV 0.6s ease forwards;
+    }
+
+    .animate-line-h {
+      transform-origin: left;
+      transform: scaleX(0);
+      animation: lineGrowH 0.6s ease forwards;
+    }
+
+    @keyframes lineGrowV {
+      to { transform: scaleY(1); }
+    }
+
+    @keyframes lineGrowH {
+      to { transform: scaleX(1); }
+    }
+  </style>
+
+  <link rel="shortcut icon" href="assets/log.png" type="image/x-icon">
+</head>
+<body class="bg-white text-gray-800 overflow-x-hidden">
+
+<!-- ================= NAVBAR ================= -->
+<header class="fixed top-0 left-0 w-full z-50 backdrop-blur bg-white/80 dark:bg-gray-900/80 shadow-sm transition-all duration-500">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-3 animate-fade-in-left">
+    <div class="w-15 h-10 overflow-hidden shadow-lg">
+        <img src="assets/log.png" alt="Logo Kartar" class="w-full h-full object-cover">
+    </div>
+      <div>
+        <h1 class="font-semibold leading-tight dark:text-white">KARANG TARUNA KARSA MUDA</h1>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          Desa Jiken, Kecamatan Tulangan, Kabupaten Sidoarjo
+        </p>
+      </div>
+    </div>
+
+    <!-- Desktop Menu -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium animate-fade-in-right">
+        <a href="#" class="text-primary border-b-2 border-primary pb-1 transition-all duration-300 hover:scale-105 dark:text-white">Beranda</a>
+      <!-- Dropdown -->
+        <div class="relative">
+        <button id="profileBtn" class="hover:text-primary transition flex items-center gap-1 duration-300 transform hover:scale-105 dark:text-white">
+            Profile ▾
+        </button>
+        <div id="profileDropdown" class="absolute hidden bg-white dark:bg-gray-900 shadow-lg rounded-xl mt-3 w-48 overflow-hidden transition-all duration-500">
+            <a href="#about" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white">About</a>
+            <a href="#visi" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white">Visi & Misi</a>
+            <a href="#struktur" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white">Struktur Pengurus</a>
+        </div>
+        </div>
+        <a href="#" class="hover:text-primary transition duration-300 hover:scale-105 dark:text-white">Berita</a>
+    </nav>
+
+    <!-- Right -->
+    <div class="flex items-center gap-4 animate-fade-in">
+      <!-- Dark Mode -->
+      <button id="darkToggle" class="text-xl transition-transform duration-300 hover:rotate-12">🌙</button>
+
+      <!-- Hamburger -->
+      <button id="menuBtn" class="md:hidden text-2xl transition-transform duration-300 hover:scale-125 dark:text-white">☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 px-6 pb-6 space-y-3 animate-slide-down dark:text-white">
+    <a href="#home" class="block transition-all duration-300 hover:translate-x-2">Beranda</a>
+    <details class="group">
+      <summary class="cursor-pointer transition-all duration-300 hover:text-primary">Profile</summary>
+      <div class="pl-4 mt-2 space-y-2 text-sm">
+        <a href="#about" class="block transition-all duration-300 hover:translate-x-1">About</a>
+        <a href="#visi" class="block transition-all duration-300 hover:translate-x-1">Visi & Misi</a>
+        <a href="#struktur" class="block transition-all duration-300 hover:translate-x-1">Struktur Pengurus</a>
+      </div>
+    </details>
+    <a href="#berita" class="block transition-all duration-300 hover:translate-x-2">Berita</a>
+  </div>
+</header>
+
+<!-- ================= HERO SECTION ================= -->
+<section class="relative h-screen pt-[96px] flex items-center justify-center text-center overflow-hidden" id="home">
+
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <img src="assets/hero.jpeg" class="w-full h-full object-cover transform scale-105 transition-transform duration-1000 ease-in-out hover:scale-110" />
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/70 to-cyan-900/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-6xl px-6 animate-fade-up">
+    <span class="inline-block mb-4 px-4 py-1 rounded-full bg-white/20 text-white backdrop-blur animate-bounce">
+      Website Resmi Karang Taruna Karsa Muda
+    </span>
+
+    <h2 class="text-white text-4xl md:text-5xl font-bold animate-slide-in-left">
+      Selamat Datang di
+    </h2>
+
+    <h1 class="text-5xl md:text-6xl font-extrabold mt-2 bg-gradient-to-r from-cyan-200 to-blue-300 bg-clip-text text-transparent animate-slide-in-right">
+      KARANG TARUNA KARSA MUDA
+    </h1>
+
+    <p class="mt-6 text-gray-200 animate-fade-up delay-200">
+      Wadah bagi generasi muda yang aktif berpartisipasi, kreatif dalam berkarya, dan peduli terhadap lingkungan sosial serta pembangunan masyarakat, dengan semangat kebersamaan dan inovasi untuk masa depan yang lebih baik.
+    </p>
+
+    <div class="mt-10 flex justify-center gap-4 flex-wrap animate-fade-up delay-400">
+      <a href="#about" class="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
+        Jelajahi →
+      </a>
+      <a href="#footer" class="border border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-blue-700 transition-all duration-300 transform hover:scale-105">
+        Hubungi Kami
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT SECTION ================= -->
+<section id="about" class="bg-white py-20 overflow-hidden dark:bg-gray-900" id="about">
+
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <!-- Heading -->
+    <div class="text-center max-w-5xl mx-auto animate-fade-up">
+      <span class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold animate-bounce">
+        Tentang Kami
+      </span>
+
+      <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 animate-slide-in-left dark:text-white">
+        Mengenal Karang Taruna Karsa Muda
+      </h2>
+
+      <p class="mt-4 text-gray-600 dark:text-gray-500 leading-relaxed animate-fade-up delay-200">
+        Karang Taruna Karsa Muda merupakan organisasi kepemudaan yang berperan dalam pengembangan potensi generasi muda melalui kegiatan sosial, budaya, olahraga, dan pemberdayaan masyarakat.
+      </p>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+      <!-- Image -->
+      <div class="animate-slide-in-left">
+        <img
+          src="assets/hero.jpeg"
+          alt="Sejarah Karang Taruna Karsa Muda"
+          class="w-full h-[420px] object-cover rounded-2xl shadow-md transform transition-transform duration-700 hover:scale-105"
+        />
+      </div>
+
+      <!-- Text -->
+      <div class="animate-slide-in-right space-y-4 text-gray-800 dark:text-gray-300">
+        <h3 class="text-2xl md:text-3xl font-bold mb-4">
+          Sejarah
+        </h3>
+
+        <p class="leading-relaxed">
+          Karang Taruna Karsa Muda didirikan untuk menampung aspirasi generasi muda, membangun kreativitas, dan menumbuhkan semangat gotong royong di masyarakat.
+        </p>
+
+        <p class="leading-relaxed">
+          Seiring waktu, organisasi ini telah berkembang menjadi wadah yang solid, mendukung kegiatan sosial, pendidikan, dan lingkungan, serta menjaga nilai-nilai budaya lokal.
+        </p>
+
+        <p class="leading-relaxed">
+          Saat ini, Karang Taruna Karsa Muda terus berinovasi melalui program-program pemberdayaan pemuda, aksi sosial, dan kegiatan lingkungan yang berdampak positif bagi masyarakat sekitar.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISI & MISI SECTION ================= -->
+<section id="visi" class="bg-gray-100 py-20 overflow-hidden dark:bg-gray-800">
+
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Heading -->
+    <div class="text-center max-w-6xl mx-auto animate-fade-up">
+      <span class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold animate-bounce">
+        Visi & Misi
+      </span>
+
+      <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 animate-slide-in-left dark:text-white">
+        Arah Pembangunan Karang Taruna Karsa Muda
+      </h2>
+
+      <p class="mt-4 text-gray-600 leading-relaxed animate-fade-up delay-200 dark:text-gray-400">
+        Komitmen Karang Taruna Karsa Muda dalam membentuk generasi muda yang mandiri, kreatif, peduli lingkungan, dan aktif dalam kegiatan sosial.
+      </p>
+    </div>
+
+    <!-- Cards -->
+    <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      <!-- VISI -->
+      <div class="group bg-white rounded-2xl shadow-md px-10 py-12 animate-slide-in-left transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer relative overflow-hidden">
+        <!-- Gradient overlay hover -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"></div>
+
+        <div class="relative z-10">
+          <div class="w-14 h-14 mb-6 rounded-full bg-blue-100 flex items-center justify-center transition-all duration-500 group-hover:bg-blue-200">
+            <!-- Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600 transition-colors duration-500 group-hover:text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6l2 4h4l-3 3 1 5-4-2-4 2 1-5-3-3h4l2-4z" />
+            </svg>
+          </div>
+
+          <h3 class="text-xl font-bold text-gray-900 mb-6">
+            Visi 
+          </h3>
+
+          <p class="text-gray-600 italic leading-relaxed">
+            Terwujudnya generasi muda Desa Jiken yang aktif, kreatif, mandiri, dan berperan dalam pembangunan sosial kemasyarakatan.”
+          </p>
+        </div>
+      </div>
+
+      <!-- MISI -->
+      <div class="group bg-white rounded-2xl shadow-md px-10 py-12 animate-slide-in-right transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer relative overflow-hidden">
+        <!-- Gradient overlay hover -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"></div>
+
+        <div class="relative z-10">
+          <div class="w-14 h-14 mb-6 rounded-full bg-blue-100 flex items-center justify-center transition-all duration-500 group-hover:bg-blue-200">
+            <!-- Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600 transition-colors duration-500 group-hover:text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6m-6-8h6M5 6h14v12H5z" />
+            </svg>
+          </div>
+
+          <h3 class="text-xl font-bold text-gray-900 mb-6">
+            Misi 
+          </h3>
+
+          <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 w-2.5 h-2.5 bg-blue-600 rounded-full"></span>
+              Mengembangkan potensi dan kreativitas pemuda desa
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 w-2.5 h-2.5 bg-blue-600 rounded-full"></span>
+              Meningkatkan kepedulian sosial dan semangat gotong royong
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 w-2.5 h-2.5 bg-blue-600 rounded-full"></span>
+              Mendorong partisipasi aktif pemuda dalam kegiatan desa
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 w-2.5 h-2.5 bg-blue-600 rounded-full"></span>
+              Mewujudkan lingkungan desa yang aman dan produktif
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= STRUKTUR PENGURUS ================= -->
+<section id="struktur" class="bg-white py-20 dark:bg-gray-900">
+  <div class="max-w-7xl mx-auto px-6 relative">
+
+    <!-- ================= HEADING ================= -->
+    <div class="text-center mb-10 animate-card" style="animation-delay:.1s">
+      <span class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold animate-bounce">
+        Struktur Organisasi
+      </span>
+      <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white">
+        Struktur Kepengurusan
+      </h2>
+      <p class="mt-4 text-gray-600 dark:text-gray-400">
+        Karang Taruna Karsa Muda Desa Jiken
+      </p>
+    </div>
+
+    <!-- ================= KETUA ================= -->
+    <div class="flex justify-center relative mb-28">
+      <div class="hidden md:block absolute top-full w-1 h-20 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: .6s;"></div>
+
+      <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg relative z-10 animate-card dark:bg-blue-200" style="animation-delay: .3s;">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+          <img src="assets/jog.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-lg">Ibrahim Fatwa</h3>
+        <p class="text-blue-600 font-semibold text-sm">Ketua</p>
+      </div>
+    </div>
+
+    <!-- ================= WAKIL KETUA ================= -->
+    <div class="relative mb-20">
+
+      <div
+        class="hidden md:block absolute top-[-32px] left-[16.5%] w-[67%] h-1 bg-blue-300 animate-line-h dark:bg-white"
+        style="animation-delay: .6s;">
+      </div>
+
+
+      <div class="hidden md:block absolute top-[-32px] left-[16.5%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 1.2s;"></div>
+      <div class="hidden md:block absolute top-[-32px] left-[49.9%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 1.4s;"></div>
+      <div class="hidden md:block absolute top-[-32px] right-[16.4%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 1.6s;"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 justify-items-center">
+        <!-- Wakil -->
+        <template id="wakil"></template>
+
+        <div class="card animate-card z-10" style="animation-delay:1.6s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg relative z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Wakil Ketua I</p>
+          </div>
+        </div>
+        <div class="card animate-card z-10" style="animation-delay:1.7s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg relative z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Wakil Ketua II</p>
+          </div>
+        </div>
+        <div class="card animate-card z-10" style="animation-delay:1.8s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg relative z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Wakil Ketua III</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SEKRETARIS & BENDAHARA ================= -->
+    <div class="relative mb-20">
+
+      <div class="hidden md:block absolute top-[-28px] left-[12.5%] w-[75%] h-1 bg-blue-300 animate-line-h dark:bg-white" style="animation-delay: 2.8s;"></div>
+
+      <div class="hidden md:block absolute top-[-152px] left-[16.5%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 2.2s;"></div>
+      <div class="hidden md:block absolute top-[-152px] left-[49.9%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 2.4s;"></div>
+      <div class="hidden md:block absolute top-[-152px] right-[16.5%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 2.6s;"></div>
+
+      <div class="hidden md:block absolute top-[-28px] left-[12.5%] w-1 h-28 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 3s;"></div>
+      <div class="hidden md:block absolute top-[-28px] left-[37.5%] w-1 h-28 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 3.2s;"></div>
+      <div class="hidden md:block absolute top-[-28px] left-[62.5%] w-1 h-28 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 3.4s;"></div>
+      <div class="hidden md:block absolute top-[-28px] left-[87.5%] w-1 h-28 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 3.6s;"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 justify-items-center">
+        <!-- Card -->
+        <div class="card animate-card z-10" style="animation-delay:3.6s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Sekretaris</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:3.7s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Wakil Sekretaris</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:3.8s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Bendahara</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:3.9s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">-</h3>
+            <p class="text-blue-600 font-semibold text-sm">Wakil Bendahara</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SEKS I BIDANG ================= -->
+    <div class="relative">
+      <!-- garis utama -->
+      <div class="hidden md:block absolute top-[190px] left-[12.5%] w-[75%] border-t-2 border-dashed border-blue-300 dark:border-white animate-line-h dark:bg-white" style="animation-delay: 4s;"></div>
+
+      <h3 class="text-3xl font-bold text-center mb-10 relative z-10 animate-card dark:text-white" style="animation-delay: 4s;">
+        Seksi Bidang
+      </h3>
+
+      <!-- BARIS 1 -->
+      <div class="relative grid grid-cols-1 md:grid-cols-3 gap-10 justify-items-center mb-36">
+        <div class="card animate-card z-10" style="animation-delay:3.7s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Pemberdayaan Masyarakat</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:3.8s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Keagamaan</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:3.9s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Olahraga & Budaya</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+        <div class="hidden md:block absolute top-[160px] left-[16.5%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 4.2s;"></div>
+        <div class="hidden md:block absolute top-[160px] left-[49.9%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 4.2s;"></div>
+        <div class="hidden md:block absolute top-[160px] right-[16.5%] w-1 h-32 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 4.2s;"></div>
+      </div>
+
+      <!-- BARIS 2 -->
+      <div class="relative grid grid-cols-1 md:grid-cols-4 gap-10 justify-items-center">
+        <div class="hidden md:block absolute top-[-80px] left-[12.5%] w-[75%] h-1 bg-blue-300 animate-line-h dark:bg-white" style="animation-delay: 4.4s;"></div>
+        <div class="hidden md:block absolute -top-20 left-[12.5%] w-1 h-20 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 4.8s;"></div>
+        <div class="hidden md:block absolute -top-20 left-[37.5%] w-1 h-20 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 5s;"></div>
+        <div class="hidden md:block absolute -top-20 left-[62.5%] w-1 h-20 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 5.2s;"></div>
+        <div class="hidden md:block absolute -top-20 left-[87.5%] w-1 h-20 bg-blue-300 animate-line-v dark:bg-white" style="animation-delay: 5.4s;"></div>
+
+        <div class="hidden md:block absolute top-[90px] left-[12.5%] w-[80%] border-t-2 border-dashed border-blue-300 animate-line-h dark:border-white" style="animation-delay: 6s;"></div>
+
+        <div class="card animate-card z-10" style="animation-delay:5.6s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Ekonomi Kreatif</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:5.7s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Lingkungan Hidup</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:5.8s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Kesejahteraan Sosial</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+
+        <div class="card animate-card z-10" style="animation-delay:5.9s">
+          <div class="w-[260px] bg-white rounded-2xl p-6 text-center shadow-lg z-10 dark:bg-blue-200">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white shadow-md overflow-hidden">
+              <img src="assets/jog.jpg" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-lg">Media Publikasi</h3>
+            <p class="text-blue-600 font-semibold text-sm">Koordinator</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= BERITA SECTION ================= -->
+<section id="berita" class="bg-white py-20 overflow-hidden dark:bg-gray-900">
+
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 animate-fade-up">
+      <div>
+        <span class="inline-block mb-3 px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold animate-bounce">
+          Berita Terkini
+        </span>
+
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 animate-slide-in-left dark:text-white">
+          Berita dan Informasi Desa Terbaru
+        </h2>
+
+        <div class="mt-2 w-16 h-1 bg-blue-800 dark:bg-blue-400 rounded-full animate-fade-up delay-200"></div>
+      </div>
+
+      <a href="#"
+         class="inline-flex items-center gap-2 bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+        Lihat Semua Berita
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Cards -->
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- CARD 1 -->
+      <div class="group bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer relative">
+        <div class="relative">
+          <img src="assets/hero.jpeg" alt="" class="w-full h-56 object-cover transition-transform duration-700 transform group-hover:scale-105">
+          <span class="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full shadow">
+            Berita Desa
+          </span>
+          <!-- Hover gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"></div>
+        </div>
+
+        <div class="p-6 relative z-10">
+          <div class="flex items-center text-sm text-gray-500 mb-3 gap-2">
+            <span>📅</span>
+            <span>14 Juni 2025</span>
+          </div>
+
+          <h3 class="font-bold text-lg text-gray-900 mb-3 animate-slide-in-left">
+            Lomba HUT RI ke-80 Meriahkan Karang Taruna Karsa Muda
+          </h3>
+
+          <p class="text-gray-600 text-sm leading-relaxed mb-4 animate-fade-up delay-100">
+            Dalam rangka memperingati Hari Ulang Tahun Republik Indonesia ke-80,
+            Karang Taruna Karsa Muda menggelar berbagai kegiatan lomba...
+          </p>
+
+          <a href="#" class="text-blue-800 font-semibold text-sm hover:underline">
+            Baca Selengkapnya →
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="group bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer relative">
+        <div class="relative">
+          <img src="assets/hero.jpeg" alt="" class="w-full h-56 object-cover transition-transform duration-700 transform group-hover:scale-105">
+          <span class="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full shadow">
+            Berita Desa
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"></div>
+        </div>
+
+        <div class="p-6 relative z-10">
+          <div class="flex items-center text-sm text-gray-500 mb-3 gap-2">
+            <span>📅</span>
+            <span>24 Juni 2025</span>
+          </div>
+
+          <h3 class="font-bold text-lg text-gray-900 mb-3 animate-slide-in-left">
+            Posyandu Balita Karang Taruna Karsa Muda Aktif Kembali
+          </h3>
+
+          <p class="text-gray-600 text-sm leading-relaxed mb-4 animate-fade-up delay-100">
+            Setelah sempat vakum akibat pandemi COVID-19, kegiatan Posyandu Balita
+            di Karang Taruna Karsa Muda kini kembali aktif...
+          </p>
+
+          <a href="#" class="text-blue-800 font-semibold text-sm hover:underline">
+            Baca Selengkapnya →
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="group bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer relative">
+        <div class="relative">
+          <img src="assets/hero.jpeg" alt="" class="w-full h-56 object-cover transition-transform duration-700 transform group-hover:scale-105">
+          <span class="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full shadow">
+            Berita Desa
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"></div>
+        </div>
+
+        <div class="p-6 relative z-10">
+          <div class="flex items-center text-sm text-gray-500 mb-3 gap-2">
+            <span>📅</span>
+            <span>24 Juni 2025</span>
+          </div>
+
+          <h3 class="font-bold text-lg text-gray-900 mb-3 animate-slide-in-left">
+            Penyaluran BLT Dana Desa Tahap II di Karang Taruna Karsa Muda
+          </h3>
+
+          <p class="text-gray-600 text-sm leading-relaxed mb-4 animate-fade-up delay-100">
+            Sebanyak 76 keluarga penerima manfaat (KPM) di Karang Taruna Karsa Muda menerima
+            Bantuan Langsung Tunai...
+          </p>
+
+          <a href="#" class="text-blue-800 font-semibold text-sm hover:underline">
+            Baca Selengkapnya →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA SECTION ================= -->
+<section class="relative py-20 flex justify-center dark:bg-gray-900">
+
+  <!-- CTA Card -->
+  <div class="relative z-10 bg-gradient-to-r from-blue-500 to-blue-800 text-white rounded-3xl px-12 py-16 max-w-8xl shadow-2xl overflow-hidden">
+
+    <!-- Half Circle Background -->
+    <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-[300px] h-[150px] bg-white/10 rounded-b-full rotate-0"></div>
+    <!-- Quarter Circles -->
+    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+    <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-tr-full"></div>
+
+    <!-- Heading -->
+    <h2 class="text-4xl font-extrabold mb-4 animate-slide-in-left text-center">
+      Mari Bersama Membangun Desa
+    </h2>
+
+    <!-- Paragraph -->
+    <p class="leading-relaxed mb-10 animate-fade-up delay-100 text-center">
+      Bergabunglah dengan kami dalam memajukan Karang Taruna Karsa Muda.
+      Suara dan partisipasi Anda sangat berarti bagi masa depan desa.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex justify-center gap-4 flex-wrap animate-fade-up delay-200">
+      <a href="#kontak" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-white/90">
+        Hubungi Kami →
+      </a>
+      <a href="#about" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
+        Tentang Kami
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= CONTACT SECTION ================= -->
+<section id="kontak" class="bg-gray-100 py-20 overflow-hidden dark:bg-gray-900">
+
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Heading -->
+    <div class="text-center max-w-5xl mx-auto animate-fade-up">
+      <span class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold animate-bounce">
+        Hubungi Kami
+      </span>
+
+      <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white animate-fade-up delay-200">
+        Tetap Terhubung dengan Kami
+      </h2>
+
+      <p class="mt-4 text-gray-600 leading-relaxed animate-fade-up delay-200 dark:text-gray-400">
+        Jika ada pertanyaan atau ingin berpartisipasi dalam kegiatan Karang Taruna Karsa Muda, 
+        jangan ragu untuk menghubungi kami melalui kontak berikut.
+      </p>
+    </div>
+
+    <!-- Contact Layout -->
+    <div class="mt-16 flex flex-col lg:flex-row gap-10">
+
+      <!-- Left: Contact Grid -->
+      <div class="flex-1 grid grid-cols-1 gap-6 lg:grid-cols-1">
+        <!-- Address -->
+        <div class="bg-white rounded-2xl shadow-md px-8 py-10 animate-slide-in-left transform transition-all duration-500 hover:scale-105 dark:bg-blue-100">
+          <h3 class="text-xl font-bold mb-4">Alamat</h3>
+          <p class="text-gray-600 leading-relaxed">
+            📍 Jl. Melati, Jiken, Kec. Tulangan, Kabupaten Sidoarjo, Jawa Timur
+          </p>
+        </div>
+
+        <!-- Email -->
+        <div class="bg-white rounded-2xl shadow-md px-8 py-10 animate-slide-in-left transform transition-all duration-500 hover:scale-105 dark:bg-blue-100">
+          <h3 class="text-xl font-bold mb-4">Email</h3>
+          <p class="text-gray-600 leading-relaxed">
+            karsamudakartar@gmail.com
+          </p>
+        </div>
+
+        <!-- Phone -->
+        <div class="bg-white rounded-2xl shadow-md px-8 py-10 animate-slide-in-left transform transition-all duration-500 hover:scale-105 dark:bg-blue-100">
+          <h3 class="text-xl font-bold mb-4">Telepon</h3>
+          <p class="text-gray-600 leading-relaxed">
+            📞 086283870589236
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="flex-1 bg-white rounded-3xl shadow-xl p-10 animate-slide-in-right dark:bg-blue-100">
+        <h3 class="text-2xl font-bold mb-6">Kirim Pesan</h3>
+        <form class="space-y-4">
+          <input type="text" placeholder="Nama" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <input type="email" placeholder="Email" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <textarea placeholder="Pesan" class="w-full border border-gray-300 rounded-lg px-4 py-3 h-32 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+            Kirim Pesan
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-blue-900 text-white">
+
+  <!-- Footer Content -->
+  <div class="border-t border-blue-800">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+      <!-- Brand -->
+      <div class="animate-fade-up delay-100">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 text-blue-900 font-bold flex items-center justify-center">
+            <img src="assets/log.png" alt="Logo Karang Taruna Karsa Muda" class="w-full h-full object-cover rounded-full">
+          </div>
+          <div>
+            <h3 class="font-semibold animate-slide-in-left">Karang Taruna Karsa Muda</h3>
+            <p class="text-sm text-blue-300 animate-fade-up delay-200">
+              Desa Jiken, Kecamatan Tulangan, Kabupaten Sidoarjo
+            </p>
+          </div>
+        </div>
+
+        <p class="text-sm text-blue-200 leading-relaxed animate-fade-up delay-300">
+          Website resmi Karang Taruna Karsa Muda. Menyediakan informasi terkini
+          tentang kegiatan dan perkembangan desa.
+        </p>
+      </div>
+
+      <!-- Kontak -->
+      <div class="animate-fade-up delay-200">
+        <h4 class="font-semibold mb-4 animate-slide-in-left">Kontak</h4>
+        <ul class="space-y-3 text-sm text-blue-200">
+          <li class="flex items-start gap-3 animate-fade-up delay-300">
+            📍 Jl. Melati, Jiken, Kec. Tulangan, Kabupaten Sidoarjo, Jawa Timur
+          </li>
+          <li class="flex items-center gap-3 animate-fade-up delay-400">
+            ✉️ karsamudakartar@gmail.com
+          </li>
+          <li class="flex items-center gap-3 animate-fade-up delay-500">
+            📞 086283870589236
+          </li>
+        </ul>
+      </div>
+
+      <!-- Link Terkait -->
+      <div class="animate-fade-up delay-300">
+        <h4 class="font-semibold mb-4 animate-slide-in-left">Link Terkait</h4>
+        <ul class="space-y-3 text-sm text-blue-200">
+          <li class="animate-fade-up delay-400"><a href="#" class="hover:underline">Beranda</a></li>
+          <li class="animate-fade-up delay-500"><a href="#" class="hover:underline">Berita</a></li>
+          <li class="animate-fade-up delay-600"><a href="#" class="hover:underline">Galeri</a></li>
+        </ul>
+      </div>
+
+      <!-- Sosial Media -->
+      <div class="animate-fade-up delay-400">
+        <h4 class="font-semibold mb-4 animate-slide-in-left">Sosial Media</h4>
+
+        <ul class="space-y-4 text-sm text-blue-200">
+
+          <!-- WhatsApp -->
+          <li class="animate-fade-up delay-500">
+            <a href="https://api.whatsapp.com/send/?phone=6283870589236&text&type=phone_number&app_absent=0" target="_blank"
+               class="flex items-center gap-3 hover:text-white transition">
+              <!-- feather icon whatsapp (custom SVG) -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.24 7.76a7.5 7.5 0 10-10.607 10.607L3 21l2.637-2.633A7.5 7.5 0 0016.24 7.76z"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.875 13.125c-.181.5-.66.87-1.202.927-.707.07-1.407.103-2.098.103s-1.391-.034-2.098-.103c-.542-.057-1.021-.427-1.202-.927A5.006 5.006 0 119.75 9.75c.076-.308.26-.595.52-.81a1.125 1.125 0 011.51.066l.914.914a.562.562 0 00.794 0l1.366-1.366a1.125 1.125 0 01.793-.295c.363 0 .713.14.973.395.262.255.41.604.41.973 0 .09-.01.18-.03.27a5.006 5.006 0 011.02 3.98z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </li>
+
+          <!-- Instagram -->
+          <li class="animate-fade-up delay-600">
+            <a href="https://instagram.com/kartar.karsamuda" target="_blank"
+               class="flex items-center gap-3 hover:text-white transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pink-400" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M17.5 6.5h.01"/>
+              </svg>
+              Instagram
+            </a>
+          </li>
+
+          <!-- TikTok -->
+          <li class="animate-fade-up delay-700">
+            <a href="https://vt.tiktok.com/ZS5MeYgBN/" target="_blank"
+               class="flex items-center gap-3 hover:text-white transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 8v8a4 4 0 004 4 4 4 0 004-4v-8h-2v8a2 2 0 01-2 2 2 2 0 01-2-2V8H9z"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M13 8V5h4v2a4 4 0 01-4 4h-2"/>
+              </svg>
+              TikTok
+            </a>
+          </li>
+
+          <!-- Lokasi -->
+          <li class="animate-fade-up delay-800">
+            <a href="https://maps.app.goo.gl/AWNhVJDS1T4fRmnt7?g_st=ipc" target="_blank"
+               class="flex items-center gap-3 hover:text-white transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M12 22s8-4.5 8-11a8 8 0 10-16 0c0 6.5 8 11 8 11z"/>
+              </svg>
+              Lokasi
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="border-t border-blue-800">
+    <div class="max-w-7xl mx-auto px-6 py-4 text-center text-sm text-blue-300 animate-fade-up delay-100">
+      © 2026 Karang Taruna Karsa Muda.
+    </div>
+  </div>
+
+</footer>
+
+
+<script>
+  // Hamburger
+  document.getElementById('menuBtn').onclick = () =>
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+
+  // Dark Mode
+  const toggle = document.getElementById('darkToggle');
+  toggle.onclick = () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  };
+  if (localStorage.theme === 'dark') document.documentElement.classList.add('dark');
+    const profileBtn = document.getElementById('profileBtn');
+  const profileDropdown = document.getElementById('profileDropdown');
+  let dropdownOpen = false;
+
+  // Klik toggle
+  profileBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // agar klik tidak merambat ke body
+    dropdownOpen = !dropdownOpen;
+    profileDropdown.classList.toggle('hidden', !dropdownOpen);
+  });
+
+  // Tutup saat klik di luar
+  document.body.addEventListener('click', () => {
+    if(dropdownOpen) {
+      dropdownOpen = false;
+      profileDropdown.classList.add('hidden');
+    }
+  });
+
+  // Hover tetap bekerja
+  profileBtn.parentElement.addEventListener('mouseenter', () => {
+    if (!dropdownOpen) profileDropdown.classList.remove('hidden');
+  });
+  profileBtn.parentElement.addEventListener('mouseleave', () => {
+    if (!dropdownOpen) profileDropdown.classList.add('hidden');
+  });
+</script>
+
+</body>
+</html>
